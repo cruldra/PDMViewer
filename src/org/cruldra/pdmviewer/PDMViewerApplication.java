@@ -6,6 +6,11 @@
 
 package org.cruldra.pdmviewer;
 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 import org.cruldra.pdmviewer.utils.PDM;
 import org.cruldra.pdmviewer.utils.PDMColumn;
 import org.cruldra.pdmviewer.utils.PDMTable;
@@ -42,78 +47,83 @@ public class PDMViewerApplication extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // Generated using JFormDesigner Evaluation license - cruldra
     private void initComponents() {
+        jMenuBar1 = new JMenuBar();
+        jMenu3 = new JMenu();
+        jMenuItem1 = new JMenuItem();
+        jMenuItem2 = new JMenuItem();
+        jMenu2 = new JMenu();
+        jScrollPane2 = new JScrollPane();
+        jTree1 = new JTree();
+        jScrollPane3 = new JScrollPane();
+        jTable1 = new JTable();
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //======== this ========
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
+        Container contentPane = getContentPane();
 
-        jScrollPane2.setViewportView(jTree1);
+        //======== jMenuBar1 ========
+        {
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            //======== jMenu3 ========
+            {
+                jMenu3.setText("\u6587\u4ef6");
 
-            },
-            new String [] {
+                //---- jMenuItem1 ----
+                jMenuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+                jMenuItem1.setText("\u6253\u5f00");
+                jMenuItem1.addActionListener(e -> jMenuItem1ActionPerformed(e));
+                jMenu3.add(jMenuItem1);
 
+                //---- jMenuItem2 ----
+                jMenuItem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK));
+                jMenuItem2.setText("\u9000\u51fa");
+                jMenuItem2.addActionListener(e -> jMenuItem2ActionPerformed(e));
+                jMenu3.add(jMenuItem2);
             }
-        ));
-        jScrollPane3.setViewportView(jTable1);
+            jMenuBar1.add(jMenu3);
 
-        jMenu3.setText("文件");
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("打开");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+            //======== jMenu2 ========
+            {
+                jMenu2.setText("\u5173\u4e8e");
             }
-        });
-        jMenu3.add(jMenuItem1);
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("退出");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem2);
-
-        jMenuBar1.add(jMenu3);
-
-        jMenu2.setText("关于");
-        jMenuBar1.add(jMenu2);
-
+            jMenuBar1.add(jMenu2);
+        }
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
-        );
+        //======== jScrollPane2 ========
+        {
+            jScrollPane2.setViewportView(jTree1);
+        }
 
+        //======== jScrollPane3 ========
+        {
+
+            //---- jTable1 ----
+            jTable1.setModel(new DefaultTableModel());
+            jScrollPane3.setViewportView(jTable1);
+        }
+
+        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane3, GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addContainerGap())
+        );
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane3, GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+        );
         pack();
+        setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -207,14 +217,15 @@ public class PDMViewerApplication extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTree jTree1;
+    // Generated using JFormDesigner Evaluation license - cruldra
+    private JMenuBar jMenuBar1;
+    private JMenu jMenu3;
+    private JMenuItem jMenuItem1;
+    private JMenuItem jMenuItem2;
+    private JMenu jMenu2;
+    private JScrollPane jScrollPane2;
+    private JTree jTree1;
+    private JScrollPane jScrollPane3;
+    private JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
