@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p::p, comp jScrollPane2::::204:x, space :p::p, comp jScrollPane3::::504:x, space :p::p}}"
-			"$verticalGroup": "par l {comp jScrollPane2:::::x, comp jScrollPane3::l::530:x}"
+			"$horizontalGroup": "par l {seq l {space :p::p, comp jScrollPane2::::234:x, space :p::p, comp jScrollPane3::::533:x, space :p::p}}"
+			"$verticalGroup": "par l {comp jScrollPane2::::457:x, comp jScrollPane3::l::457:x}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 3
@@ -13,20 +13,20 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane2"
 				add( new FormComponent( "javax.swing.JTree" ) {
-					name: "jTree1"
+					name: "pdmObjectExplorer"
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane3"
 				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "jTable1"
+					name: "pdmTableTable"
 					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector, new java.util.Vector, new java.util.Vector, new java.util.Vector )
 				} )
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
-				name: "jMenuBar1"
+				name: "mainMenu"
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "jMenu3"
+					name: "fileMenu"
 					"text": "文件"
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "jMenuItem1"
@@ -42,12 +42,13 @@ new FormModel {
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "jMenu2"
+					name: "aboutMenu"
 					"text": "关于"
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 400, 300 )
+			"size": new java.awt.Dimension( 630, 416 )
+			"location": new java.awt.Point( 106, 70 )
 		} )
 	}
 }

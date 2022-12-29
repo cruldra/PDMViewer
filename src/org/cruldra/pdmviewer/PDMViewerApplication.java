@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -49,61 +50,61 @@ public class PDMViewerApplication extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     // Generated using JFormDesigner Evaluation license - cruldra
     private void initComponents() {
-        jMenuBar1 = new JMenuBar();
-        jMenu3 = new JMenu();
+        mainMenu = new JMenuBar();
+        fileMenu = new JMenu();
         jMenuItem1 = new JMenuItem();
         jMenuItem2 = new JMenuItem();
-        jMenu2 = new JMenu();
+        aboutMenu = new JMenu();
         jScrollPane2 = new JScrollPane();
-        jTree1 = new JTree();
+        pdmObjectExplorer = new JTree();
         jScrollPane3 = new JScrollPane();
-        jTable1 = new JTable();
+        pdmTableTable = new JTable();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
         Container contentPane = getContentPane();
 
-        //======== jMenuBar1 ========
+        //======== mainMenu ========
         {
 
-            //======== jMenu3 ========
+            //======== fileMenu ========
             {
-                jMenu3.setText("\u6587\u4ef6");
+                fileMenu.setText("\u6587\u4ef6");
 
                 //---- jMenuItem1 ----
                 jMenuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
                 jMenuItem1.setText("\u6253\u5f00");
                 jMenuItem1.addActionListener(e -> jMenuItem1ActionPerformed(e));
-                jMenu3.add(jMenuItem1);
+                fileMenu.add(jMenuItem1);
 
                 //---- jMenuItem2 ----
                 jMenuItem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK));
                 jMenuItem2.setText("\u9000\u51fa");
                 jMenuItem2.addActionListener(e -> jMenuItem2ActionPerformed(e));
-                jMenu3.add(jMenuItem2);
+                fileMenu.add(jMenuItem2);
             }
-            jMenuBar1.add(jMenu3);
+            mainMenu.add(fileMenu);
 
-            //======== jMenu2 ========
+            //======== aboutMenu ========
             {
-                jMenu2.setText("\u5173\u4e8e");
+                aboutMenu.setText("\u5173\u4e8e");
             }
-            jMenuBar1.add(jMenu2);
+            mainMenu.add(aboutMenu);
         }
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(mainMenu);
 
         //======== jScrollPane2 ========
         {
-            jScrollPane2.setViewportView(jTree1);
+            jScrollPane2.setViewportView(pdmObjectExplorer);
         }
 
         //======== jScrollPane3 ========
         {
 
-            //---- jTable1 ----
-            jTable1.setModel(new DefaultTableModel());
-            jScrollPane3.setViewportView(jTable1);
+            //---- pdmTableTable ----
+            pdmTableTable.setModel(new DefaultTableModel());
+            jScrollPane3.setViewportView(pdmTableTable);
         }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -112,15 +113,15 @@ public class PDMViewerApplication extends javax.swing.JFrame {
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane3, GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
                     .addContainerGap())
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
-                .addComponent(jScrollPane2)
-                .addComponent(jScrollPane3, GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -128,9 +129,10 @@ public class PDMViewerApplication extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("PowerDesigner PDM File", "pdm");
         JFileChooser jfc = new JFileChooser();
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
+        jfc.setFileFilter(filter);
         File file = null;
         if (JFileChooser.APPROVE_OPTION== jfc.showOpenDialog(this)) {
             file = jfc.getSelectedFile();
@@ -144,36 +146,34 @@ public class PDMViewerApplication extends javax.swing.JFrame {
                             DefaultMutableTreeNode child = new DefaultMutableTreeNode(t);
                             top.add(child);
                     }
-                    jTree1.setModel(new DefaultTreeModel(top));
-                    jTree1.addTreeSelectionListener(new TreeSelectionListener() {
-                        public void valueChanged(TreeSelectionEvent e) {
-                            DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1
-                                    .getLastSelectedPathComponent();
+                pdmObjectExplorer.setModel(new DefaultTreeModel(top));
+                    //注册左侧pdm对象浏览器项目的点击事件
+                pdmObjectExplorer.addTreeSelectionListener(e -> {
+                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) pdmObjectExplorer
+                            .getLastSelectedPathComponent();
 
-                            if (node == null)
-                                return;
+                    if (node == null)
+                        return;
 
-                            Object object = node.getUserObject();
-                            if (node.isLeaf()) {
-                                PDMTable pdmt = (PDMTable) object;
-                                ArrayList<PDMColumn> cols = pdmt.getColumns();
-                                String[] columnNames = {"名称", "CODE", "数据类型", "备注"};
-                                cols.trimToSize();
-                                Object[][] data = new Object[cols.size()][columnNames.length];
+                    Object object = node.getUserObject();
+                    if (node.isLeaf()) {
+                        PDMTable pdmt = (PDMTable) object;
+                        ArrayList<PDMColumn> cols = pdmt.getColumns();
+                        String[] columnNames = {"名称", "代码", "数据类型", "备注"};
+                        cols.trimToSize();
+                        Object[][] data = new Object[cols.size()][columnNames.length];
 
-                                int i = 0;
-                                for (PDMColumn col : cols) {
-                                    data[i][0] = col.getName();
-                                    data[i][1] = col.getCode();
-                                    data[i][2] = col.getDataType();
-                                    data[i][3] = col.getComment();
-                                    i++;
-                                }
-                               int s =  Frame.MAXIMIZED_BOTH;
-                                TableModel dataMode = new DefaultTableModel(data, columnNames);
-                                jTable1.setModel(dataMode);
-                            }}
-                    });
+                        int i = 0;
+                        for (PDMColumn col : cols) {
+                            data[i][0] = col.getName();
+                            data[i][1] = col.getCode();
+                            data[i][2] = col.getDataType();
+                            data[i][3] = col.getComment();
+                            i++;
+                        }
+                        TableModel dataMode = new DefaultTableModel(data, columnNames);
+                        pdmTableTable.setModel(dataMode);
+                    }});
             } catch (Exception e) {
                     e.printStackTrace();
             }
@@ -218,14 +218,14 @@ public class PDMViewerApplication extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - cruldra
-    private JMenuBar jMenuBar1;
-    private JMenu jMenu3;
+    private JMenuBar mainMenu;
+    private JMenu fileMenu;
     private JMenuItem jMenuItem1;
     private JMenuItem jMenuItem2;
-    private JMenu jMenu2;
+    private JMenu aboutMenu;
     private JScrollPane jScrollPane2;
-    private JTree jTree1;
+    private JTree pdmObjectExplorer;
     private JScrollPane jScrollPane3;
-    private JTable jTable1;
+    private JTable pdmTableTable;
     // End of variables declaration//GEN-END:variables
 }
