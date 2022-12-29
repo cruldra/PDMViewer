@@ -1,4 +1,4 @@
-package com.smshen.utils;
+package org.cruldra.pdmviewer.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class Parser {
     public PDM pdmParser(String pdmFileName) throws Exception {
         SAXReader reader = new SAXReader();
         Document doc = reader.read(pdmFileName);
-              
+
         Node model = doc.selectSingleNode("//c:Children/o:Model");
 
         pdm.setId(((Element) model).attributeValue("Id"));
@@ -146,7 +146,7 @@ public class Parser {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("error:" + e.getMessage());            
+            System.out.println("error:" + e.getMessage());
         }
 
         return columnList;

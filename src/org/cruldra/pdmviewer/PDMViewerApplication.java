@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 
-package com.smshen;
+package org.cruldra.pdmviewer;
 
-import com.smshen.utils.PDM;
-import com.smshen.utils.PDMColumn;
-import com.smshen.utils.PDMTable;
-import com.smshen.utils.Parser;
+import org.cruldra.pdmviewer.utils.PDM;
+import org.cruldra.pdmviewer.utils.PDMColumn;
+import org.cruldra.pdmviewer.utils.PDMTable;
+import org.cruldra.pdmviewer.utils.Parser;
+
 import java.awt.Frame;
 import java.io.File;
 import java.util.ArrayList;
@@ -25,12 +26,12 @@ import javax.swing.tree.DefaultTreeModel;
  *
  * @author ice
  */
-public class ContactEditorUI extends javax.swing.JFrame {
+public class PDMViewerApplication extends javax.swing.JFrame {
 
     /**
-     * Creates new form ContactEditorUI
+     * Creates new form PDMViewerApplication
      */
-    public ContactEditorUI() {
+    public PDMViewerApplication() {
         initComponents();
     }
 
@@ -191,22 +192,18 @@ public class ContactEditorUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ContactEditorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PDMViewerApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ContactEditorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PDMViewerApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ContactEditorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PDMViewerApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ContactEditorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PDMViewerApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ContactEditorUI().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new PDMViewerApplication().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
