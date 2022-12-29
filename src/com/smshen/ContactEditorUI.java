@@ -119,15 +119,15 @@ public class ContactEditorUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser jfc = new JFileChooser();
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        
+
         File file = null;
         if (JFileChooser.APPROVE_OPTION== jfc.showOpenDialog(this)) {
             file = jfc.getSelectedFile();
             try {
                     PDM p = new Parser().pdmParser(file.getPath());
                     DefaultMutableTreeNode top = new DefaultMutableTreeNode("表");
-                    
-                    
+
+
                     for (PDMTable t : p.getTables()) {
                             System.out.println("table-->" + t.getName() + ", code-->" + t.getCode());
                             DefaultMutableTreeNode child = new DefaultMutableTreeNode(t);
@@ -135,7 +135,6 @@ public class ContactEditorUI extends javax.swing.JFrame {
                     }
                     jTree1.setModel(new DefaultTreeModel(top));
                     jTree1.addTreeSelectionListener(new TreeSelectionListener() {
-                        @Override
                         public void valueChanged(TreeSelectionEvent e) {
                             DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1
                                     .getLastSelectedPathComponent();
@@ -150,7 +149,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
                                 String[] columnNames = {"名称", "CODE", "数据类型", "备注"};
                                 cols.trimToSize();
                                 Object[][] data = new Object[cols.size()][columnNames.length];
-                                
+
                                 int i = 0;
                                 for (PDMColumn col : cols) {
                                     data[i][0] = col.getName();
@@ -158,7 +157,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
                                     data[i][2] = col.getDataType();
                                     data[i][3] = col.getComment();
                                     i++;
-                                }                             
+                                }
                                int s =  Frame.MAXIMIZED_BOTH;
                                 TableModel dataMode = new DefaultTableModel(data, columnNames);
                                 jTable1.setModel(dataMode);
@@ -166,7 +165,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
                     });
             } catch (Exception e) {
                     e.printStackTrace();
-            }    
+            }
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -182,7 +181,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
