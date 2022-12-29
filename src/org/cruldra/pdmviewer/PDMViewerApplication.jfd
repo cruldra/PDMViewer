@@ -14,6 +14,9 @@ new FormModel {
 				name: "jScrollPane2"
 				add( new FormComponent( "javax.swing.JTree" ) {
 					name: "pdmObjectExplorer"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "pdmObjectExplorerMousePressed", true ) )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "pdmObjectExplorerMouseReleased", true ) )
+					addEvent( new FormEvent( "javax.swing.event.TreeSelectionListener", "valueChanged", "pdmObjectExplorerValueChanged", true ) )
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -49,6 +52,30 @@ new FormModel {
 		}, new FormLayoutConstraints( null ) {
 			"size": new java.awt.Dimension( 630, 416 )
 			"location": new java.awt.Point( 106, 70 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "pdmObjectExplorerContextMenu"
+			add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+				name: "menu1"
+				"text": "mybatis"
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "generateExistByPrimaryKeyBlockMenu"
+					"text": "生成existByPrimaryKey块"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "generateExistByPrimaryKeyBlockMenu", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "generateInsertSelectiveBlockMenu"
+					"text": "生成insertSelective块"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "generateInsertSelectiveBlockMenu", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JMenuItem" ) {
+					name: "generateUpdateByPrimaryKeySelectiveBlockMenu"
+					"text": "生成updateByPrimaryKeySelective块"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "generateUpdateByPrimaryKeySelectiveBlockMenu", true ) )
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 110, 510 )
 		} )
 	}
 }
