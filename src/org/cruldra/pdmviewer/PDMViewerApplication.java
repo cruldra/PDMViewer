@@ -15,6 +15,10 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
 
 import kotlin.text.StringsKt;
+import org.cruldra.pdmviewer.models.PDM;
+import org.cruldra.pdmviewer.models.PDMColumn;
+import org.cruldra.pdmviewer.models.PDMTable;
+import org.cruldra.pdmviewer.parser.Parser;
 import org.cruldra.pdmviewer.utils.*;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -22,14 +26,12 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
-import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -175,7 +177,7 @@ public class PDMViewerApplication extends javax.swing.JFrame {
             trim1.addAttribute("suffixOverrides", ",");
             pdmt.getColumns().forEach(pdmColumn -> {
                 Element if1 = trim1.addElement("if");
-                if1.addAttribute("test", pdmColumn.getCode() + " != null");
+                if1.addAttribute("test", StrUtilsKt.toCamelCase(pdmColumn.getCode()) + " != null");
                 if1.addText(pdmColumn.getCode() + ",");
             });
 
@@ -185,8 +187,8 @@ public class PDMViewerApplication extends javax.swing.JFrame {
             trim2.addAttribute("suffixOverrides", ",");
             pdmt.getColumns().forEach(pdmColumn -> {
                 Element if2 = trim2.addElement("if");
-                if2.addAttribute("test", pdmColumn.getCode() + " != null");
-                if2.addText("#{" + pdmColumn.getCode() + ",jdbcType=" + StringsKt.substringBefore(pdmColumn.getDataType(), "(", pdmColumn.getDataType()) + "},");
+                if2.addAttribute("test", StrUtilsKt.toCamelCase(pdmColumn.getCode()) + " != null");
+                if2.addText("#{" + StrUtilsKt.toCamelCase(pdmColumn.getCode()) + ",jdbcType=" + PDMColumnExtensionsKt.getIbatisType(pdmColumn) + "},");
             });
 
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -214,10 +216,10 @@ public class PDMViewerApplication extends javax.swing.JFrame {
             Element set = root.addElement("set");
             pdmt.getColumns().forEach(pdmColumn -> {
                 Element if1 = set.addElement("if");
-                if1.addAttribute("test", pdmColumn.getCode() + " != null");
-                if1.addText(pdmColumn.getCode() + " = #{" + StrUtilsKt.toCamelCase(pdmColumn.getCode()) + ",jdbcType=" + StringsKt.substringBefore(pdmColumn.getDataType(), "(", pdmColumn.getDataType()) + "},");
+                if1.addAttribute("test", StrUtilsKt.toCamelCase(pdmColumn.getCode()) + " != null");
+                if1.addText(pdmColumn.getCode() + " = #{" + StrUtilsKt.toCamelCase(pdmColumn.getCode()) + ",jdbcType=" + PDMColumnExtensionsKt.getIbatisType(pdmColumn) + "},");
             });
-            root.addText("\nwhere "+pkColumn.getCode()+" = #{"+pkColumn.getCode()+",jdbcType="+ StringsKt.substringBefore(pkColumn.getDataType() ,"(" ,pkColumn.getDataType()  ) +"}");
+            root.addText("\nwhere " + pkColumn.getCode() + " = #{" + pkColumn.getCode() + ",jdbcType=" + PDMColumnExtensionsKt.getIbatisType(pkColumn) + "}");
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             StringSelection selection = new StringSelection(formatXML(root));
             clipboard.setContents(selection, null);

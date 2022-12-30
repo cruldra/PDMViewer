@@ -1,8 +1,9 @@
-package org.cruldra.pdmviewer.utils;
+package org.cruldra.pdmviewer.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cruldra.pdmviewer.models.*;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;

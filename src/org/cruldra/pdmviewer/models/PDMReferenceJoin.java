@@ -1,4 +1,4 @@
-package org.cruldra.pdmviewer.utils;
+package org.cruldra.pdmviewer.models;
 
 public class PDMReferenceJoin {
 	private String Id;
