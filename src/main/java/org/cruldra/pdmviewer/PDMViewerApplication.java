@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
@@ -26,8 +27,10 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
@@ -226,7 +229,7 @@ public class PDMViewerApplication extends javax.swing.JFrame {
         }
     }
 
-    public PDMViewerApplication() {
+    public PDMViewerApplication() throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         initComponents();
     }
 
@@ -238,7 +241,7 @@ public class PDMViewerApplication extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     // Generated using JFormDesigner Evaluation license - cruldra
-    private void initComponents() {
+    private void initComponents() throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         mainMenu = new JMenuBar();
         fileMenu = new JMenu();
         jMenuItem1 = new JMenuItem();
@@ -258,7 +261,12 @@ public class PDMViewerApplication extends javax.swing.JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
         Container contentPane = getContentPane();
-
+        Taskbar taskbar = Taskbar.getTaskbar();
+        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("icon.png");
+        assert inputStream != null;
+        BufferedImage iconImage = ImageIO.read(inputStream);
+        taskbar.setIconImage(iconImage);
+//        taskbar.setWindowTitle(frame, "My App");
         //======== mainMenu ========
         {
 
@@ -394,7 +402,11 @@ public class PDMViewerApplication extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+        System.setProperty("com.apple.mrj.application.apple.menu.about.name", "WikiTeX");
+        /*System.setProperty(
+                "com.apple.mrj.application.apple.menu.about.name", "Name");*/
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -417,9 +429,16 @@ public class PDMViewerApplication extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PDMViewerApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new PDMViewerApplication().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new PDMViewerApplication().setVisible(true);
+            } catch (IOException | UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException |
+                     IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
